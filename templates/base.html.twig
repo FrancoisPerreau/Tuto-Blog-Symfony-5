@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-        {% block stylesheets %}{% endblock %}
 
-        {% block javascripts %}{% endblock %}
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+    {% block stylesheets %}{% endblock %}
+
+    {% block javascripts %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        {% include "layout/navbar.html.twig" %}
+        
+    </header>
+
+    <div class="container">
         {% block body %}{% endblock %}
-    </body>
+    </div>
+</body>
+
 </html>
