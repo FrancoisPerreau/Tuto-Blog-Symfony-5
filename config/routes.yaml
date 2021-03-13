@@ -1,7 +1,7 @@
-hello:
-   path: /hello
-   controller: App\Controller\HelloController::hello
+# hello:
+#    path: /hello
+#    controller: App\Controller\HelloController::hello
 
-helloName:
-  path: /hello/{name}
-  controller: App\Controller\HelloController::helloName
+# helloName:
+#   path: /hello/{name}
+#   controller: App\Controller\HelloController::helloName
