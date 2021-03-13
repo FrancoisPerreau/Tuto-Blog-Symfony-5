@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HelloController
 {
     /**
-     * @Route("/hello")
+     * @Route("/hello", name="hello")
      */
     public function hello(): Response
     {
@@ -19,8 +19,7 @@ class HelloController
     }
 
     /**
-
-     * @Route("/hello/{name}")
+     * @Route("/hello/{name}", name="hello_name")
      */
     public function helloName($name): Response
     {
