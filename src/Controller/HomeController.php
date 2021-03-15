@@ -10,12 +10,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    private $articleRepository;
+
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository = $articleRepository;
+    }
+
     /**
      * @Route("/home", name="home")
      */
-    public function index(ArticleRepository $articleRepository): Response
+    public function index(): Response
     {
-        $articles = $articleRepository->findAll();
+        $articles = $this->articleRepository->findAll();
 
         return $this->render("home/home.html.twig", [
             'articles' => $articles,
@@ -25,11 +32,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/article/{id}", name="show_article")
      */
-    public function show($id, ArticleRepository $articleRepository): Response
+    public function show(Article $article): Response
     {
-        $article = $articleRepository->find($id);
         if (!$article) return $this->redirectToRoute('home');
-
 
         return $this->render("showArticle/show.html.twig", [
             'article' => $article,
