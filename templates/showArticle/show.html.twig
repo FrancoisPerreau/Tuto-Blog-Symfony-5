@@ -2,9 +2,9 @@
 
 {% block body %}
     <div class="img-fluid">
-        <img width="100%" src="{{ asset('assets/blog/uploads/') ~ article.image}}" alt="{{ article.title }}" alt="{{ article.title }}">
+        <img width="100%" src="{{ asset('assets/blog/uploads/') ~ article.image }}" alt="{{ article.title }}" alt="{{ article.title }}">
     </div>
-    <p class="date text-muted">Ecrit le {{ article.createdAt | date("d/m/Y à H:i")}}</p>
+    <p class="date text-muted">Ecrit le {{ article.createdAt | date("d/m/Y à H:i")}} par <strong>{{ article.author }}</strong></p>
     <h1 class="article-title">{{ article.title }}</h1>
     <p class="content text-justify">{{ article.content|raw }}</p>
 
