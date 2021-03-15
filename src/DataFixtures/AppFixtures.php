@@ -42,12 +42,13 @@ class AppFixtures extends Fixture
             $categories[] = $category;
         }
 
-        $articles = [];
         for ($i = 0; $i < 100; $i++) {
             $article = new Article();
             $article->setTitle($faker->text(50))
                 ->setContent($faker->text(6000))
-                ->setImage($faker->imageUrl())
+                // ->setImage($faker->imageUrl())
+                // ->setImage("https://loremflickr.com/320/240")
+                ->setImage($faker->image($dir = '/tmp', $width = 640, $height = 480))
                 ->setCreatedAt(new \DateTime())
                 ->addCategory($categories[$faker->numberBetween(0, 14)])
                 ->setAuthor($users[$faker->numberBetween(0, 49)]);
