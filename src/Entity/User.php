@@ -6,12 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -54,6 +55,15 @@ class User
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author")
      */
     private $articles;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+
+
+
 
     public function __construct()
     {
@@ -165,5 +175,47 @@ class User
         }
 
         return $this;
+    }
+
+    /**
+     * Get the value of roles
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * Set the value of roles
+     *
+     * @return  self
+     */
+    public function setRoles($roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
