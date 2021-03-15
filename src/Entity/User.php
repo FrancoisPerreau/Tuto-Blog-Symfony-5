@@ -68,6 +68,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
 
