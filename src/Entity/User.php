@@ -70,6 +70,13 @@ class User implements UserInterface
         $this->articles = new ArrayCollection();
     }
 
+
+    public function __toString()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
