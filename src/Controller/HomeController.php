@@ -28,7 +28,8 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        $articles = $this->articleRepository->findAll();
+        // $articles = $this->articleRepository->findAll();
+        $articles = $this->articleRepository->findBy([], ['createdAt' => 'DESC']);
         $categories = $this->categoryRepository->findAll();
 
         return $this->render("home/home.html.twig", [
@@ -57,7 +58,7 @@ class HomeController extends AbstractController
     {
         if (!$category) return $this->redirectToRoute('home');
 
-        $articles = $category->getArticles()->getValues();
+        $articles = array_reverse($category->getArticles()->getValues());
         $categories = $this->categoryRepository->findAll();
 
         return $this->render("home/home.html.twig", [
