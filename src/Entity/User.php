@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -23,26 +24,58 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "Le nom d'utilisateur doit comporter au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom d'utilisateur doit comporter au maximum {{ limit }} caractères"
+     * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "Le prénom doit comporter au moins {{ limit }} caractères",
+     *      maxMessage = "Le prénom d'utilisateur doit comporter au maximum {{ limit }} caractères"
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "Le nom doit comporter au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom d'utilisateur doit comporter au maximum {{ limit }} caractères"
+     * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ ne doit pas être vide")
+     * @Assert\Email(
+     *     message = "Cet email '{{ value }}' n'est pas une adresse valide"
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 20,
+     *      minMessage = "Le mot de passe doit comporter au moins {{ limit }} caractères",
+     *      maxMessage = "Le Le mot de passe doit comporter au maximum {{ limit }} caractères"
+     * )
      */
     private $password;
 
