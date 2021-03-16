@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     private $articleRepository;
+    private $categoryRepository;
 
-    public function __construct(ArticleRepository $articleRepository)
-    {
+    public function __construct(
+        ArticleRepository $articleRepository,
+        CategoryRepository $categoryRepository
+    ) {
         $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -23,21 +29,40 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $articles = $this->articleRepository->findAll();
+        $categories = $this->categoryRepository->findAll();
 
         return $this->render("home/home.html.twig", [
             'articles' => $articles,
+            'categories' => $categories
         ]);
     }
 
     /**
      * @Route("/article/{id}", name="show_article")
      */
-    public function show(Article $article): Response
+    public function showArticle(?Article $article): Response
     {
         if (!$article) return $this->redirectToRoute('home');
 
         return $this->render("showArticle/show.html.twig", [
             'article' => $article,
+        ]);
+    }
+
+
+    /**
+     * @Route("/categorie/{id}", name="show_category_articles")
+     */
+    public function categoryAricles(?Category $category): Response
+    {
+        if (!$category) return $this->redirectToRoute('home');
+
+        $articles = $category->getArticles()->getValues();
+        $categories = $this->categoryRepository->findAll();
+
+        return $this->render("home/home.html.twig", [
+            'articles' => $articles,
+            'categories' => $categories
         ]);
     }
 }
