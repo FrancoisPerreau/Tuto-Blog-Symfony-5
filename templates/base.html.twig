@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>
+        {% block title %}
+            {% if pageTitle is defined %}{{ pageTitle }} | {% endif %}Mon blog
+        {% endblock %}
+    </title>
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     {% block stylesheets %}{% endblock %}
 

@@ -33,6 +33,8 @@ class HomeController extends AbstractController
         $categories = $this->categoryRepository->findAll();
 
         return $this->render("home/home.html.twig", [
+            'pageTitle' => 'Accueil',
+            'title' => 'Blog d\'actualité',
             'articles' => $articles,
             'categories' => $categories
         ]);
@@ -46,6 +48,7 @@ class HomeController extends AbstractController
         if (!$article) return $this->redirectToRoute('home');
 
         return $this->render("showArticle/show.html.twig", [
+            'pageTitle' => $article->getTitle(),
             'article' => $article,
         ]);
     }
@@ -62,6 +65,8 @@ class HomeController extends AbstractController
         $categories = $this->categoryRepository->findAll();
 
         return $this->render("home/home.html.twig", [
+            'pageTitle' => $category,
+            'title' => $category,
             'articles' => $articles,
             'categories' => $categories
         ]);
