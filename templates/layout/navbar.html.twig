@@ -14,7 +14,16 @@
                     </a>
                 </li>
             </ul>
-            <a class="btn btn-danger" href="{{ path('security_register') }}">Inscription</a>
+            {% if app.user %}
+                <a class="btn btn-danger mx-1" href="{{ path('security_logout') }}">Déconnexion</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-warning mx-1" href="{{ path('admin') }}">Administration</a>
+                {% endif %}
+            {% else %}
+                <a class="btn btn-danger mx-1" href="{{ path('security_register') }}">Inscription</a>
+                <a class="btn btn-danger mx-1" href="{{ path('security_login') }}">Connexion</a>
+            {% endif %}
+            
         </div>
     </div>
 </nav>
